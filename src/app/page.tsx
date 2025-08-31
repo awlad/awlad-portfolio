@@ -56,14 +56,14 @@ export default function Home() {
               <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
                 Software Developer passionate about creating innovative solutions and building exceptional user experiences
               </p>
-              <div className="flex justify-center space-x-6">
+              <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <motion.a
                   href="https://www.linkedin.com/in/litonawlad"
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors"
+                  className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition-colors w-full sm:w-auto justify-center"
                 >
                   <Linkedin size={20} />
                   <span>LinkedIn</span>
@@ -74,7 +74,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors"
+                  className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition-colors w-full sm:w-auto justify-center"
                 >
                   <Github size={20} />
                   <span>GitHub</span>
@@ -84,7 +84,7 @@ export default function Home() {
                   download="Awlad_Resume.pdf"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition-colors"
+                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg transition-colors w-full sm:w-auto justify-center"
                 >
                   <svg
                     width="20"
