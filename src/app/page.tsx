@@ -51,7 +51,7 @@ export default function Home() {
                 />
               </motion.div>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-                Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Awlad</span>
+                Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Awlad</span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
                 Software Developer passionate about creating innovative solutions and building exceptional user experiences
@@ -120,7 +120,7 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">About Me</h2>
             <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              I'm a passionate software developer with expertise in modern web technologies.
+              I&apos;m a passionate software developer with expertise in modern web technologies.
               I love creating efficient, scalable solutions and have experience working with various
               technologies including React, Node.js, and mobile development.
             </p>
@@ -184,7 +184,7 @@ export default function Home() {
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Featured Projects</h2>
             <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              Here are some of the projects I've worked on that showcase my skills and experience.
+              Here are some of the projects I&apos;ve worked on that showcase my skills and experience.
             </p>
           </motion.div>
 
@@ -203,12 +203,24 @@ export default function Home() {
               <div className="mb-4">
                 <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails</span>
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby (3.1.4)</span>
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails (6.1.7.4)</span>
                   <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">PostgreSQL</span>
-                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">Heroku</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">RSpec</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Devise</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">ActiveAdmin</span>
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Sidekiq</span>
+                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">Sunspot/Solr</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Paperclip</span>
+                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">RSpec & Capybara</span>
+                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Slim & Haml</span>
+                  <span className="px-2 py-1 bg-pink-600/20 text-pink-300 rounded-md text-xs">Sass & Bootstrap</span>
                   <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
-                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">Solr</span>
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Redis</span>
+                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">Omniauth</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Geocoder</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Rabl & ActiveModelSerializers</span>
+                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">AWS</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Flightcontrol</span>
                 </div>
               </div>
               <div className="flex space-x-4">
@@ -238,12 +250,20 @@ export default function Home() {
               <div className="mb-4">
                 <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">PostgreSQL</span>
-                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">Heroku</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">RSpec</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
-                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">Solr</span>
+                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">React (with Vite)</span>
+                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Supabase</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Posthresql</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">TypeScript & JavaScript</span>
+                  <span className="px-2 py-1 bg-pink-600/20 text-pink-300 rounded-md text-xs">Tailwind CSS</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Radix UI</span>
+                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">TanStack React Query & React Table</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Zod</span>
+                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Supabase</span>
+                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">Stripe</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">SendGrid</span>
+                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Cypress</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">ESLint</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Yarn & npm</span>
                 </div>
               </div>
               <div className="flex space-x-4">
@@ -273,12 +293,26 @@ export default function Home() {
               <div className="mb-4">
                 <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
                 <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails</span>
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails (6.1)</span>
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby (3.1.4)</span>
                   <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">PostgreSQL</span>
+                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">React.js</span>
+                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">JavaScript</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">TypeScript</span>
+                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">AWS S3</span>
                   <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">Heroku</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">ActiveAdmin</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Devise</span>
                   <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">RSpec</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
-                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">Solr</span>
+                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Capybara</span>
+                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">Bootstrap 5</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Font Awesome</span>
+                  <span className="px-2 py-1 bg-pink-600/20 text-pink-300 rounded-md text-xs">SASS/SCSS</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Papertrail</span>
+                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">OmniAuth</span>
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Redis</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Wicked PDF</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Sentry</span>
                 </div>
               </div>
               <div className="flex space-x-4">
@@ -414,11 +448,79 @@ export default function Home() {
                   <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
                   <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
                   <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Vue.js</span>
+                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">GraphQL</span>
                 </div>
               </div>
               <div className="flex space-x-4">
                 <a
                   href="https://feedier.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  <ExternalLink size={16} />
+                  <span>Visit Site</span>
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
+            >
+              <h3 className="text-xl font-semibold text-white mb-3">Day trip finder</h3>
+              <p className="text-gray-300 mb-4">
+                Day Trip Finder showcases UK attractions, with user-contributed feedback and location-based search.
+              </p>
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
+                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
+                </div>
+              </div>
+              <div className="flex space-x-4">
+                <a
+                  href="http://www.daytripfinder.co.uk/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  <ExternalLink size={16} />
+                  <span>Visit Site</span>
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
+            >
+              <h3 className="text-xl font-semibold text-white mb-3">BettingExpert</h3>
+              <p className="text-gray-300 mb-4">
+                BettingExpert, with over 1 million users, guides users to make better bets globally. Significantly contributed to store, blog, clash, and tipster-statistics modules.
+              </p>
+              <div className="mb-4">
+                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
+                <div className="flex flex-wrap gap-2">
+                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">PHP</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">ModX</span>
+                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
+                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
+                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
+                </div>
+              </div>
+              <div className="flex space-x-4">
+                <a
+                  href="https://www.bettingexpert.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
@@ -442,9 +544,9 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Let's Connect</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Let&apos;s Connect</h2>
             <p className="text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
-              I'm always interested in discussing new opportunities and collaborating on exciting projects.
+              I&apos;m always interested in discussing new opportunities and collaborating on exciting projects.
             </p>
 
             <div className="flex justify-center space-x-8">
@@ -496,7 +598,7 @@ export default function Home() {
       <footer className="border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-400">
-            © 2025 Awlad. Built with Next.js and Tailwind CSS.
+            © 2025 Awlad.
           </p>
         </div>
       </footer>
