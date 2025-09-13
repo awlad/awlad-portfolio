@@ -4,7 +4,18 @@ import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, ExternalLink, Code, User, Briefcase } from 'lucide-react'
 import Image from 'next/image'
 
+// Calculate years of experience dynamically
+const calculateYearsOfExperience = () => {
+  const startDate = new Date('2012-11-01') // November 1, 2012
+  const currentDate = new Date()
+  const diffInMilliseconds = currentDate.getTime() - startDate.getTime()
+  const diffInYears = diffInMilliseconds / (1000 * 60 * 60 * 24 * 365.25)
+  return Math.floor(diffInYears)
+}
+
 export default function Home() {
+  const yearsOfExperience = calculateYearsOfExperience()
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header/Navigation */}
@@ -20,6 +31,7 @@ export default function Home() {
             </motion.div>
             <div className="hidden md:flex space-x-8">
               <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
+              <a href="#experience" className="text-gray-300 hover:text-white transition-colors">Experience</a>
               <a href="#projects" className="text-gray-300 hover:text-white transition-colors">Projects</a>
               <a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a>
             </div>
@@ -54,7 +66,7 @@ export default function Home() {
                 Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Awlad</span>
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                Software Developer passionate about creating innovative solutions and building exceptional user experiences
+                Senior Ruby on Rails Developer with {yearsOfExperience}+ years of experience delivering scalable solutions for global clients
               </p>
               <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
                 <motion.a
@@ -119,10 +131,14 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">About Me</h2>
-            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              I&apos;m a passionate software developer with expertise in modern web technologies.
-              I love creating efficient, scalable solutions and have experience working with various
-              technologies including React, Node.js, and mobile development.
+            <p className="text-gray-300 text-lg max-w-4xl mx-auto">
+              Seasoned full-stack developer with an impressive {yearsOfExperience}-year career, currently serving as Director of Technology
+              with extensive expertise in Ruby on Rails, React.js, Next.js, PostgreSQL, and Supabase. Boasting 5 years of
+              remote work experience, collaborating with clients from France, the USA, Denmark, and Sweden. Proven track record
+              of adapting seamlessly to team sizes ranging from 2 to 15 members, with strong team management skills. Successfully
+              delivered over 20 projects, showcasing expertise in Ruby, Rails, React.js, Next.js, PostgreSQL, Supabase, MySQL,
+              JavaScript, TypeScript, Git, CSS, AWS, Google APIs, payment gateways, Heroku, and API integrations. Recognized
+              for consistently delivering scalable and high-quality solutions.
             </p>
           </motion.div>
 
@@ -135,9 +151,10 @@ export default function Home() {
               className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
             >
               <Code className="w-12 h-12 text-blue-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Full Stack Development</h3>
+              <h3 className="text-xl font-semibold text-white mb-2">{yearsOfExperience}+ Years Experience</h3>
               <p className="text-gray-300">
-                Experienced in building complete web applications from frontend to backend with modern technologies.
+                Extensive experience in full-stack development with expertise in Ruby on Rails, React.js, Next.js, PostgreSQL,
+                Supabase, and leading development teams as Director of Technology.
               </p>
             </motion.div>
 
@@ -149,9 +166,9 @@ export default function Home() {
               className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
             >
               <User className="w-12 h-12 text-purple-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">UI/UX Focus</h3>
+              <h3 className="text-xl font-semibold text-white mb-2">Global Remote Experience</h3>
               <p className="text-gray-300">
-                Creating intuitive and beautiful user interfaces with attention to detail and user experience.
+                5+ years of remote work experience collaborating with international clients from France, USA, Denmark, and Sweden.
               </p>
             </motion.div>
 
@@ -163,10 +180,122 @@ export default function Home() {
               className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
             >
               <Briefcase className="w-12 h-12 text-green-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Problem Solving</h3>
+              <h3 className="text-xl font-semibold text-white mb-2">Leadership & Mentoring</h3>
               <p className="text-gray-300">
-                Analytical approach to solving complex problems with clean, maintainable code.
+                Strong team management skills with experience leading teams of 2-15 members and mentoring junior developers.
               </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Professional Experience</h2>
+            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+              Over {yearsOfExperience} years of delivering high-quality software solutions across various industries and technologies.
+            </p>
+          </motion.div>
+
+          <div className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white">Director of Technology</h3>
+                  <p className="text-blue-400 font-medium">Brandscopic, San Francisco, USA (Remote)</p>
+                </div>
+                <span className="text-gray-400 text-sm md:text-base">December 2019 - Present</span>
+              </div>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Leading technology strategy and development initiatives as Director of Technology</li>
+                <li>• Architecting and implementing modern solutions using React.js, Next.js, PostgreSQL, and Supabase</li>
+                <li>• Optimized and scaled up a legacy Ruby on Rails system, resulting in a 20% performance improvement</li>
+                <li>• Implemented agile methods, ensuring precise timelines, and boosted development efficiency</li>
+                <li>• Engaged with clients to grasp their needs and customized sprints, resulting in a 10% reduction in development time</li>
+                <li>• Worked with product stakeholders to improve the product and maintained detailed documentation</li>
+                <li>• Reviewed pull requests, designed application architecture, and supervised database management and deployments</li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white">Technical Team Lead</h3>
+                  <p className="text-blue-400 font-medium">Augnitive, Dhaka, Bangladesh</p>
+                </div>
+                <span className="text-gray-400 text-sm md:text-base">March 2020 - March 2023</span>
+              </div>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Meeting with clients and collecting requirements</li>
+                <li>• Analysis requirements, breakdown to stories and set project sprint</li>
+                <li>• Monitor project development progress</li>
+                <li>• Help team members overcome obstacles and provide technical guidance</li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white">Senior Software Engineer</h3>
+                  <p className="text-blue-400 font-medium">Feedier, Lille, France (Remote)</p>
+                </div>
+                <span className="text-gray-400 text-sm md:text-base">January 2019 - November 2019</span>
+              </div>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Conducted usability and performance analysis, offering improvement suggestions</li>
+                <li>• Took on leadership responsibilities while serving as a full-stack software engineer</li>
+                <li>• Oversaw project scheduling, planning, and deadlines for multiple concurrent projects</li>
+                <li>• Analyzed requirements, joined client meetings, designed architecture, coded, tested, and reviewed pull requests</li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold text-white">Senior Software Engineer</h3>
+                  <p className="text-blue-400 font-medium">Nascenia Limited, Dhaka, Bangladesh</p>
+                </div>
+                <span className="text-gray-400 text-sm md:text-base">September 2012 - December 2018</span>
+              </div>
+              <ul className="text-gray-300 space-y-2">
+                <li>• Developed, tested, and maintained Ruby on Rails applications</li>
+                <li>• Resolved technical issues and bugs in Rails apps effectively</li>
+                <li>• Ensured compliance with coding standards, best practices, and performance metrics</li>
+                <li>• Collaborated on cross-functional teams to implement new features</li>
+                <li>• Mentored junior developers and contributed to the team&apos;s knowledge base</li>
+              </ul>
             </motion.div>
           </div>
         </div>
