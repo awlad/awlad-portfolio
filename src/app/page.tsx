@@ -92,7 +92,7 @@ export default function Home() {
                   <span>GitHub</span>
                 </motion.a>
                 <motion.a
-                  href="/awlad_resume.pdf"
+                  href="/ResumeOfAwlad.pdf"
                   download="Awlad_Resume.pdf"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
