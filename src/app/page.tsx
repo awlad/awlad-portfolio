@@ -59,7 +59,7 @@ export default function Home() {
                   alt="Awlad's Profile"
                   width={200}
                   height={200}
-                  className="rounded-full mx-auto border-4 border-white/20 shadow-2xl"
+                  className="rounded-full mx-auto border-4 border-white/20 shadow-2xl w-[200px] h-[200px] object-cover object-center"
                 />
               </motion.div>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
@@ -727,7 +727,7 @@ export default function Home() {
       <footer className="border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-400">
-            © 2025 Awlad.
+            © {new Date().getFullYear()} Awlad.
           </p>
         </div>
       </footer>
