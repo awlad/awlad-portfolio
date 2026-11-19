@@ -9,7 +9,8 @@
 # Next.js
 /.next/
 /out/
-
+/copilot
+copilot.data.*
 # Production
 /build
 
