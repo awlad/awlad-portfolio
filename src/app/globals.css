@@ -43,3 +43,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+@page {
+  size: A4;
+  margin: 12mm 14mm;
+}

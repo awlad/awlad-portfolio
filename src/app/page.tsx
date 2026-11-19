@@ -1,734 +1,339 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ExternalLink, Code, User, Briefcase } from 'lucide-react'
+import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
+import type { ReactNode } from 'react'
+import {
+  careerStart,
+  currentClientStart,
+  education,
+  experience,
+  profile,
+  projects,
+  remoteStart,
+  services,
+  skills,
+  yearsSince,
+} from '../data/resume'
 
-// Calculate years of experience dynamically
-const calculateYearsOfExperience = () => {
-  const startDate = new Date('2012-11-01') // November 1, 2012
-  const currentDate = new Date()
-  const diffInMilliseconds = currentDate.getTime() - startDate.getTime()
-  const diffInYears = diffInMilliseconds / (1000 * 60 * 60 * 24 * 365.25)
-  return Math.floor(diffInYears)
+const card = 'bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20'
+const tag = 'px-2 py-1 bg-white/10 text-gray-200 rounded-md text-xs'
+
+function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
+      viewport={{ once: true }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function SectionHeading({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <Reveal className="text-center mb-12">
+      <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{title}</h2>
+      {subtitle && <p className="text-gray-300 text-lg max-w-3xl mx-auto">{subtitle}</p>}
+    </Reveal>
+  )
 }
 
 export default function Home() {
-  const yearsOfExperience = calculateYearsOfExperience()
+  const yearsOfExperience = yearsSince(careerStart)
+  const remoteYears = yearsSince(remoteStart)
+  const clientYears = yearsSince(currentClientStart)
+
+  const stats = [
+    { value: `${yearsOfExperience}+`, label: 'Years of experience' },
+    { value: `${remoteYears}+`, label: 'Years working remotely' },
+    { value: `${clientYears}+`, label: 'Years with current client' },
+  ]
+  const featured = projects.filter((p) => p.featured)
+  const other = projects.filter((p) => !p.featured)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Header/Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-2xl font-bold text-white"
-            >
-              Awlad
-            </motion.div>
+            <div className="text-2xl font-bold text-white">Awlad</div>
             <div className="hidden md:flex space-x-8">
-              <a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a>
-              <a href="#experience" className="text-gray-300 hover:text-white transition-colors">Experience</a>
+              <a href="#services" className="text-gray-300 hover:text-white transition-colors">Services</a>
               <a href="#projects" className="text-gray-300 hover:text-white transition-colors">Projects</a>
+              <a href="#experience" className="text-gray-300 hover:text-white transition-colors">Experience</a>
+              <a href="#skills" className="text-gray-300 hover:text-white transition-colors">Skills</a>
               <a href="#contact" className="text-gray-300 hover:text-white transition-colors">Contact</a>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="mb-8"
-              >
-                <Image
-                  src="/awlad.jpeg"
-                  alt="Awlad's Profile"
-                  width={200}
-                  height={200}
-                  className="rounded-full mx-auto border-4 border-white/20 shadow-2xl w-[200px] h-[200px] object-cover object-center"
-                />
-              </motion.div>
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-                Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Awlad</span>
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                Senior Ruby on Rails Developer with {yearsOfExperience}+ years of experience delivering scalable solutions for global clients
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <motion.a
-                  href="https://www.linkedin.com/in/litonawlad"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg transition-colors w-full sm:w-auto justify-center"
-                >
-                  <Linkedin size={20} />
-                  <span>LinkedIn</span>
-                </motion.a>
-                <motion.a
-                  href="https://github.com/awlad"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-3 rounded-lg transition-colors w-full sm:w-auto justify-center"
-                >
-                  <Github size={20} />
-                  <span>GitHub</span>
-                </motion.a>
-                <motion.a
-                  href="/ResumeOfAwlad.pdf"
-                  download="Awlad_Resume.pdf"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg transition-colors w-full sm:w-auto justify-center"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7,10 12,15 17,10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
-                  </svg>
-                  <span>Resume</span>
-                </motion.a>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">About Me</h2>
-            <p className="text-gray-300 text-lg max-w-4xl mx-auto">
-              Seasoned full-stack developer with an impressive {yearsOfExperience}-year career, currently serving as Director of Technology
-              with extensive expertise in Ruby on Rails, React.js, Next.js, PostgreSQL, and Supabase. Boasting 5 years of
-              remote work experience, collaborating with clients from France, the USA, Denmark, and Sweden. Proven track record
-              of adapting seamlessly to team sizes ranging from 2 to 15 members, with strong team management skills. Successfully
-              delivered over 20 projects, showcasing expertise in Ruby, Rails, React.js, Next.js, PostgreSQL, Supabase, MySQL,
-              JavaScript, TypeScript, Git, CSS, AWS, Google APIs, payment gateways, Heroku, and API integrations. Recognized
-              for consistently delivering scalable and high-quality solutions.
+      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <Image
+              src="/awlad.jpeg"
+              alt="Awlad's Profile"
+              width={200}
+              height={200}
+              priority
+              className="rounded-full mx-auto mb-8 border-4 border-white/20 shadow-2xl w-[200px] h-[200px] object-cover object-center"
+            />
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+              Hi, I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Awlad</span>
+            </h1>
+            <p className="text-xl md:text-2xl text-white font-semibold mb-2">{profile.title}</p>
+            <p className="text-lg md:text-xl text-gray-300 mb-3">
+              {yearsOfExperience}+ Years Building, Scaling &amp; Modernizing Web Applications
             </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
-            >
-              <Code className="w-12 h-12 text-blue-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">{yearsOfExperience}+ Years Experience</h3>
-              <p className="text-gray-300">
-                Extensive experience in full-stack development with expertise in Ruby on Rails, React.js, Next.js, PostgreSQL,
-                Supabase, and leading development teams as Director of Technology.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
-            >
-              <User className="w-12 h-12 text-purple-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Global Remote Experience</h3>
-              <p className="text-gray-300">
-                5+ years of remote work experience collaborating with international clients from France, USA, Denmark, and Sweden.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
-            >
-              <Briefcase className="w-12 h-12 text-green-400 mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">Leadership & Mentoring</h3>
-              <p className="text-gray-300">
-                Strong team management skills with experience leading teams of 2-15 members and mentoring junior developers.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Professional Experience</h2>
-            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              Over {yearsOfExperience} years of delivering high-quality software solutions across various industries and technologies.
+            <p className="text-sm md:text-base text-blue-300 mb-6">Ruby on Rails · React · PostgreSQL · Supabase</p>
+            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+              I help businesses build, maintain, and modernize reliable web applications. From legacy Rails systems to modern
+              React applications, I bring deep engineering experience, long-term ownership, and a product-focused approach.
             </p>
-          </motion.div>
-
-          <div className="space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
-            >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white">Director of Technology</h3>
-                  <p className="text-blue-400 font-medium">Brandscopic, San Francisco, USA (Remote)</p>
-                </div>
-                <span className="text-gray-400 text-sm md:text-base">December 2019 - Present</span>
-              </div>
-              <ul className="text-gray-300 space-y-2">
-                <li>• Leading technology strategy and development initiatives as Director of Technology</li>
-                <li>• Architecting and implementing modern solutions using React.js, Next.js, PostgreSQL, and Supabase</li>
-                <li>• Optimized and scaled up a legacy Ruby on Rails system, resulting in a 20% performance improvement</li>
-                <li>• Implemented agile methods, ensuring precise timelines, and boosted development efficiency</li>
-                <li>• Engaged with clients to grasp their needs and customized sprints, resulting in a 10% reduction in development time</li>
-                <li>• Worked with product stakeholders to improve the product and maintained detailed documentation</li>
-                <li>• Reviewed pull requests, designed application architecture, and supervised database management and deployments</li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
-            >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white">Technical Team Lead</h3>
-                  <p className="text-blue-400 font-medium">Augnitive, Dhaka, Bangladesh</p>
-                </div>
-                <span className="text-gray-400 text-sm md:text-base">March 2020 - March 2023</span>
-              </div>
-              <ul className="text-gray-300 space-y-2">
-                <li>• Meeting with clients and collecting requirements</li>
-                <li>• Analysis requirements, breakdown to stories and set project sprint</li>
-                <li>• Monitor project development progress</li>
-                <li>• Help team members overcome obstacles and provide technical guidance</li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
-            >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white">Senior Software Engineer</h3>
-                  <p className="text-blue-400 font-medium">Feedier, Lille, France (Remote)</p>
-                </div>
-                <span className="text-gray-400 text-sm md:text-base">January 2019 - November 2019</span>
-              </div>
-              <ul className="text-gray-300 space-y-2">
-                <li>• Conducted usability and performance analysis, offering improvement suggestions</li>
-                <li>• Took on leadership responsibilities while serving as a full-stack software engineer</li>
-                <li>• Oversaw project scheduling, planning, and deadlines for multiple concurrent projects</li>
-                <li>• Analyzed requirements, joined client meetings, designed architecture, coded, tested, and reviewed pull requests</li>
-              </ul>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
-            >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-white">Senior Software Engineer</h3>
-                  <p className="text-blue-400 font-medium">Nascenia Limited, Dhaka, Bangladesh</p>
-                </div>
-                <span className="text-gray-400 text-sm md:text-base">September 2012 - December 2018</span>
-              </div>
-              <ul className="text-gray-300 space-y-2">
-                <li>• Developed, tested, and maintained Ruby on Rails applications</li>
-                <li>• Resolved technical issues and bugs in Rails apps effectively</li>
-                <li>• Ensured compliance with coding standards, best practices, and performance metrics</li>
-                <li>• Collaborated on cross-functional teams to implement new features</li>
-                <li>• Mentored junior developers and contributed to the team&apos;s knowledge base</li>
-              </ul>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Featured Projects</h2>
-            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              Here are some of the projects I&apos;ve worked on that showcase my skills and experience.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">Brandscopic</h3>
-              <p className="text-gray-300 mb-4">
-                Brandscopic centralizes experiential marketing, managing events, campaigns, brands, staff, KPIs, and reports, fostering data-driven decisions.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby (3.1.4)</span>
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails (6.1.7.4)</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">PostgreSQL</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Devise</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">ActiveAdmin</span>
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Sidekiq</span>
-                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">Sunspot/Solr</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Paperclip</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">RSpec & Capybara</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Slim & Haml</span>
-                  <span className="px-2 py-1 bg-pink-600/20 text-pink-300 rounded-md text-xs">Sass & Bootstrap</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Redis</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">Omniauth</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Geocoder</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Rabl & ActiveModelSerializers</span>
-                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">AWS</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Flightcontrol</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="http://brandscopic.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Visit Site</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">Poll Worker Hub</h3>
-              <p className="text-gray-300 mb-4">
-                Poll Worker Hub centralizes experiential marketing, managing events, campaigns, brands, staff, KPIs, and reports, fostering data-driven decisions.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">React (with Vite)</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Supabase</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Posthresql</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">TypeScript & JavaScript</span>
-                  <span className="px-2 py-1 bg-pink-600/20 text-pink-300 rounded-md text-xs">Tailwind CSS</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Radix UI</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">TanStack React Query & React Table</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Zod</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Supabase</span>
-                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">Stripe</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">SendGrid</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Cypress</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">ESLint</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Yarn & npm</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.pollworkerhub.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Visit Site</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">Electask</h3>
-              <p className="text-gray-300 mb-4">
-                Electask is a comprehensive task and project management platform designed to streamline workflows and enhance productivity for teams and individuals.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails (6.1)</span>
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby (3.1.4)</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">PostgreSQL</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">React.js</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">JavaScript</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">TypeScript</span>
-                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">AWS S3</span>
-                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">Heroku</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">ActiveAdmin</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Devise</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">RSpec</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Capybara</span>
-                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">Bootstrap 5</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">Font Awesome</span>
-                  <span className="px-2 py-1 bg-pink-600/20 text-pink-300 rounded-md text-xs">SASS/SCSS</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Papertrail</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">OmniAuth</span>
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Redis</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Wicked PDF</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Sentry</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.electask.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Visit Site</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">Simple Signup</h3>
-              <p className="text-gray-300 mb-4">
-                This platform is an event management solution that is widely recognized as the most popular in Sweden. It enables event organizers to create and share events, and allows participants to purchase tickets through online or offline payment systems.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Payment Gateways</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="https://simplesignup.se/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Visit Site</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">My Robi Mobile App</h3>
-              <p className="text-gray-300 mb-4">
-                Mobile application available on Google Play Store with modern features and user-friendly design.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">REST API</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="https://play.google.com/store/apps/details?id=net.omobio.robisc&hl=en&gl=US"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Play Store</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">Biyeta</h3>
-              <p className="text-gray-300 mb-4">
-                Biyeta, a Bengali matrimony site, emphasizes user privacy, suggesting matches based on profiles, displaying information with explicit consent.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">RSpec</span>
-                  <span className="px-2 py-1 bg-orange-600/20 text-orange-300 rounded-md text-xs">AWS S3</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.biyeta.com/en"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Visit Site</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">Feedier</h3>
-              <p className="text-gray-300 mb-4">
-                Customer feedback platform designed to help businesses collect and analyze user feedback effectively.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Laravel</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
-                  <span className="px-2 py-1 bg-green-600/20 text-green-300 rounded-md text-xs">Vue.js</span>
-                  <span className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded-md text-xs">GraphQL</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="https://feedier.ai/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Visit Site</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">Day trip finder</h3>
-              <p className="text-gray-300 mb-4">
-                Day Trip Finder showcases UK attractions, with user-contributed feedback and location-based search.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">Ruby on Rails</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="http://www.daytripfinder.co.uk/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Visit Site</span>
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-              viewport={{ once: true }}
-              className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">BettingExpert</h3>
-              <p className="text-gray-300 mb-4">
-                BettingExpert, with over 1 million users, guides users to make better bets globally. Significantly contributed to store, blog, clash, and tipster-statistics modules.
-              </p>
-              <div className="mb-4">
-                <h4 className="text-sm font-semibold text-blue-400 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-red-600/20 text-red-300 rounded-md text-xs">PHP</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">ModX</span>
-                  <span className="px-2 py-1 bg-blue-600/20 text-blue-300 rounded-md text-xs">MySQL</span>
-                  <span className="px-2 py-1 bg-gray-600/20 text-gray-300 rounded-md text-xs">Git</span>
-                  <span className="px-2 py-1 bg-yellow-600/20 text-yellow-300 rounded-md text-xs">jQuery</span>
-                </div>
-              </div>
-              <div className="flex space-x-4">
-                <a
-                  href="https://www.bettingexpert.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  <ExternalLink size={16} />
-                  <span>Visit Site</span>
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Let&apos;s Connect</h2>
-            <p className="text-gray-300 text-lg mb-12 max-w-2xl mx-auto">
-              I&apos;m always interested in discussing new opportunities and collaborating on exciting projects.
-            </p>
-
-            <div className="flex justify-center space-x-8">
-              <motion.a
-                href="https://www.linkedin.com/in/litonawlad"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex flex-col items-center space-y-2 text-gray-300 hover:text-white transition-colors"
+            <div className="flex flex-wrap justify-center gap-3 mb-8 text-sm">
+              <span className="px-3 py-1 rounded-full border border-green-400/40 bg-green-500/10 text-green-300">Available for remote projects</span>
+              <span className="px-3 py-1 rounded-full border border-blue-400/40 bg-blue-500/10 text-blue-300">Long-term partnerships</span>
+            </div>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              <a
+                href="#contact"
+                className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors w-full sm:w-auto justify-center"
               >
-                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
-                  <Linkedin size={32} />
-                </div>
-                <span>LinkedIn</span>
-              </motion.a>
-
-              <motion.a
-                href="https://github.com/awlad"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex flex-col items-center space-y-2 text-gray-300 hover:text-white transition-colors"
+                <Mail size={20} />
+                <span>Contact Me</span>
+              </a>
+              <a
+                href={profile.resumePath}
+                className="border border-white/30 hover:bg-white/10 text-white px-6 py-3 rounded-lg transition-colors w-full sm:w-auto text-center"
               >
-                <div className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center">
-                  <Github size={32} />
-                </div>
-                <span>GitHub</span>
-              </motion.a>
-
-              <motion.a
-                href="mailto:awlad@example.com"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex flex-col items-center space-y-2 text-gray-300 hover:text-white transition-colors"
-              >
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center">
-                  <Mail size={32} />
-                </div>
-                <span>Email</span>
-              </motion.a>
+                View Resume
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="p-3 text-gray-300 hover:text-white transition-colors">
+                <Linkedin size={24} />
+              </a>
+              <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="p-3 text-gray-300 hover:text-white transition-colors">
+                <Github size={24} />
+              </a>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
+      <section className="pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {stats.map((s, i) => (
+            <Reveal key={s.label} delay={i * 0.1} className={`${card} text-center`}>
+              <div className="text-4xl font-bold text-blue-400">{s.value}</div>
+              <div className="text-gray-300 mt-1">{s.label}</div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
+        <div className="max-w-7xl mx-auto">
+          <SectionHeading
+            title="What I Do"
+            subtitle="I take ownership of existing business-critical applications and keep them reliable, modern, and moving forward, while building new features and products."
+          />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((s, i) => (
+              <Reveal key={s.title} delay={i * 0.05} className={card}>
+                <h3 className="text-xl font-semibold text-white mb-2">{s.title}</h3>
+                <p className="text-gray-300">{s.description}</p>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-10 max-w-4xl mx-auto text-center">
+            <p className="text-gray-300">
+              {yearsOfExperience}+ years of production engineering, long-term ownership of established applications, and direct
+              collaboration with clients in the USA, France, Denmark, and Sweden, covering architecture, deployment,
+              performance, and technical leadership as Director of Technology.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <SectionHeading title="Featured Projects" subtitle="Real production systems: what they do and what I contributed." />
+          <div className="grid lg:grid-cols-3 gap-8">
+            {featured.map((p, i) => (
+              <Reveal key={p.slug} delay={i * 0.1} className={`${card} flex flex-col hover:border-white/40 transition-all duration-300`}>
+                {p.image && (
+                  <Image
+                    src={p.image}
+                    alt={`${p.name} screenshot`}
+                    width={1280}
+                    height={640}
+                    className="rounded-lg mb-4 w-full aspect-[2/1] object-cover object-top border border-white/10"
+                  />
+                )}
+                <h3 className="text-xl font-semibold text-white mb-3">{p.name}</h3>
+                <p className="text-gray-300 mb-4">{p.summary}</p>
+                <h4 className="text-sm font-semibold text-blue-400 mb-2">My contribution</h4>
+                <ul className="text-gray-300 text-sm space-y-1 mb-4">
+                  {p.contribution.map((c) => (
+                    <li key={c}>• {c}</li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {p.tech.map((t) => (
+                    <span key={t} className={tag}>{t}</span>
+                  ))}
+                </div>
+                {p.url && (
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto flex items-center space-x-1 text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <ExternalLink size={16} />
+                    <span>{p.urlLabel ?? 'Visit Site'}</span>
+                  </a>
+                )}
+              </Reveal>
+            ))}
+          </div>
+
+          <h3 className="text-2xl font-semibold text-white mt-16 mb-6 text-center">More Projects</h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {other.map((p, i) => (
+              <Reveal key={p.slug} delay={i * 0.05} className={card}>
+                <h4 className="text-lg font-semibold text-white mb-2">{p.name}</h4>
+                <p className="text-gray-300 text-sm mb-3">{p.summary}</p>
+                <div className="flex flex-wrap gap-2 mb-3">
+                  {p.tech.map((t) => (
+                    <span key={t} className={tag}>{t}</span>
+                  ))}
+                </div>
+                {p.url && (
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-1 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <ExternalLink size={14} />
+                    <span>{p.urlLabel ?? 'Visit Site'}</span>
+                  </a>
+                )}
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
+        <div className="max-w-7xl mx-auto">
+          <SectionHeading
+            title="Professional Experience"
+            subtitle={`${yearsOfExperience}+ years of building and maintaining production software, including ${clientYears}+ years of continuous ownership of one platform.`}
+          />
+          <div className="space-y-8">
+            {experience.map((job, i) => (
+              <Reveal key={job.company} delay={i * 0.05} className={card}>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">{job.role}</h3>
+                    <p className="text-blue-400 font-medium">{job.company}, {job.location}</p>
+                  </div>
+                  <span className="text-gray-300 text-sm md:text-base">
+                    {job.period}
+                    {job.note && <span className="block md:text-right text-gray-400 text-sm">{job.note}</span>}
+                  </span>
+                </div>
+                <ul className="text-gray-300 space-y-2">
+                  {job.bullets.map((b) => (
+                    <li key={b}>• {b}</li>
+                  ))}
+                </ul>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <SectionHeading title="Technical Expertise" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {skills.map((group, i) => (
+              <Reveal key={group.category} delay={i * 0.05} className={card}>
+                <h3 className="text-lg font-semibold text-blue-400 mb-3">{group.category}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span key={item} className={tag}>{item}</span>
+                  ))}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-12 max-w-3xl mx-auto">
+            <h3 className="text-lg font-semibold text-white mb-3 text-center">Education</h3>
+            <ul className="text-gray-300 space-y-2 text-center">
+              {education.map((e) => (
+                <li key={e.degree}>
+                  {e.degree}, {e.school} ({e.period})
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+      </section>
+
+      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-black/20">
+        <div className="max-w-3xl mx-auto text-center">
+          <Reveal>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Have a Rails application that needs attention?</h2>
+            <p className="text-gray-300 text-lg mb-6">
+              I can help you maintain, modernize, scale, and improve your existing web application. Available for long-term remote
+              engagements and part-time development partnerships.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 mb-8 text-sm">
+              <span className="px-3 py-1 rounded-full border border-green-400/40 bg-green-500/10 text-green-300">Remote worldwide</span>
+              <span className="px-3 py-1 rounded-full border border-blue-400/40 bg-blue-500/10 text-blue-300">Long-term projects</span>
+            </div>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6">
+              <a
+                href={`mailto:${profile.email}`}
+                className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors w-full sm:w-auto justify-center"
+              >
+                <Mail size={20} />
+                <span>Let&apos;s discuss your project →</span>
+              </a>
+              <a
+                href={profile.resumePath}
+                className="border border-white/30 hover:bg-white/10 text-white px-6 py-3 rounded-lg transition-colors w-full sm:w-auto text-center"
+              >
+                View Resume
+              </a>
+            </div>
+            <p className="text-gray-300 mb-6">
+              Email: <a href={`mailto:${profile.email}`} className="text-blue-300 hover:text-blue-200 underline">{profile.email}</a>
+            </p>
+            <div className="flex justify-center gap-6">
+              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-gray-300 hover:text-white transition-colors">
+                <Linkedin size={28} />
+              </a>
+              <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-gray-300 hover:text-white transition-colors">
+                <Github size={28} />
+              </a>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <footer className="border-t border-white/10 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} Awlad.
-          </p>
+          <p className="text-gray-300">© {new Date().getFullYear()} Awlad.</p>
         </div>
       </footer>
     </div>
